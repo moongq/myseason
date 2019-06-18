@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+
+{% endblock %}
+{% block content %}
+    <div>
+        {{ season.think_this_again }}
+    </div>
+    <br><br>
+    <div class="article">
+        <ul>
+            {% for article in articles %}
+            <li>
+                <h1>{{ article.title }}</h1>
+                <br>
+                <p>{{ article.content|safe }}</p>
+                <br><br>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

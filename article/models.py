@@ -17,27 +17,25 @@ class Year(models.Model):
     name = models.CharField(max_length=4, choices=YEAR_CHOICES, default='2019')
 
     def __str__(self):
-        return self.name
+        return self.get_name_display()
+
 
 class Season(models.Model):
-    SEASON_CHOICES = (
-        ('spr', 'SPRING'),
-        ('sum', 'SUMMER'),
-        ('aut', 'AUTUMN'),
-        ('win', 'WINTER'),
-    )
-
-    name = models.CharField(max_length=4, choices=SEASON_CHOICES, default='1')
+    name = models.CharField(max_length=40, default='새 시즌')
     year = models.ForeignKey(Year, on_delete=models.CASCADE,
                              related_name='seasons')
+    # 계절의 목표를 each_season 맨위에 보이면 어떨까 싶음. 그래서 모델을 새로 만들고 새로 해야할듯?
+    think_this_again = models.CharField(max_length=400, default='', blank=True)
 
     def __str__(self):
-        return '{0} {1}'.format(self.year.name, self.name)
+        return '{0}_'.format(self.name)
+        # '{0} {1}'.format(self.year.name, self.name) 6.10 수정전
         # return self.year.name, self.name
 
 
+
 class Article(models.Model):
-    title = models.CharField(max_length=12, default='제목쓰셈')
+    title = models.CharField(max_length=12, default='null')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     content = HTMLField()

@@ -1,40 +1,50 @@
+{% load static %}
 <html>
 <head>
 
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    {% block head %}{% endblock %}
+    {% block css %}{% endblock %}
+
+    <title>yourseason</title>
+    <style>
+    a { text-decoration: none; color: black; }
+    a:visited { text-decoration: none; }
+    a:hover { text-decoration: none; }
+    a:focus { text-decoration: none; }
+    a:hover, a:active { text-decoration: none; }
+    </style>
 </head>
-  <body>
-  <script>
-
-  </script>
-  <div id="wrap">
+<body>
+<script></script>
+<div id="wrap">
     <div id="header">
-      <h1>
-        <a href="/">Your Season</a>
-      </h1>
+        <h1>
+            <a href="/">KIMMOONQ</a>
+        </h1>
     </div>
-
     <div id='nav'>
-      <ul class='year'>
-        {% for year in years %}
-          <ul class='year'>
-            <li>
-              {{ year }}
-              <ul class='season'>
-                {% for season in year.seasons.all %}
-                  <li>
-                   {{ season }}
-                  </li>
+            <ul class='year'>
+                {% for year in years %}
+                    <li>
+                       <p>{{ year }}</p>
+                        <ul class='season'>
+                            {% for season in year.seasons.all %}
+                                <li>
+                                    <a href={% url 'each_season' season.id %}>{{ season }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                 {% endfor %}
-              </ul>
-            </li>
-          </ul>
-        {% endfor %}
-      </ul>
+            </ul>
     </div>
     <div id="section">
-      {% block content %}
-      {% endblock %}
+        {% block content %}
+        {% endblock %}
     </div>
-  </div>
-  </body>
+</div>
+{% block js %}{% endblock %}
+</body>
 </html>
